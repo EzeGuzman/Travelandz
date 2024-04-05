@@ -1,0 +1,47 @@
+.body {
+  width: 100%;
+}
+
+// Estilos generales para el contenedor principal
+.container {
+  margin: 0 auto 2rem;
+  max-width: 1200px;
+  padding: 20px;
+
+  // Estilos para dispositivos móviles
+  @media only screen and (max-width: 768px) {
+  }
+}
+
+// Estilos para el stepper
+.horizontal {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  // Estilos para dispositivos móviles
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+// Estilos para los pasos
+.step {
+  margin-bottom: 20px;
+
+  // Estilos para dispositivos móviles
+  @media only screen and (max-width: 768px) {
+    margin-bottom: 10px;
+  }
+}
+
+// Estilos para el botón de control
+.button-control {
+  display: flex;
+  justify-content: space-between;
+
+  // Estilos para dispositivos móviles
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+  }
+}

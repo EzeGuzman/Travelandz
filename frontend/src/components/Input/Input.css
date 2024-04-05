@@ -1,0 +1,210 @@
+.text-container,
+.number-container,
+.password-container,
+.email-container,
+.select-container,
+.date-container,
+.tel-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.text-container--disabled,
+.number-container--disabled,
+.password-container--disabled,
+.email-container--disabled,
+.select-container--disabled,
+.date-container--disabled,
+.tel-container--disabled,
+.checkbox-container--disabled {
+    opacity: .5;
+}
+
+.radio-container,
+.checkbox-container {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+/* .file-container {
+    width: 10rem;
+    height: 10rem;
+} */
+
+.text,
+.number,
+.password,
+.email,
+.select,
+.date,
+.tel {
+    width: 100%;
+    font-size: 1.5rem;
+    padding: .7rem;
+    border-radius: 15px;
+    outline: 2px solid var(--b-gray);
+    border: none;
+    background-color: #FFFCFC;
+    color: var(--black);
+    font-family: var(--paragraphs);
+}
+
+.file {
+    visibility: hidden;
+}
+
+.text__label,
+.number__label,
+.password__label,
+.email__label,
+.select__label,
+.date__label, 
+.tel__label {
+    font-size: 1.5rem;
+    font-family: var(--paragraphs);
+    padding: 1rem 0;
+    transition: font-size, .3s;
+    color: var(--black);
+    pointer-events: none;
+}
+
+.file__label {
+    pointer-events: all;
+    width: 100%; 
+    height: 100%; 
+    font-size: 35px;
+    border-radius: 10px;
+    background-color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--gray);
+}
+
+.checkbox__label, .radio__label {
+    font-size: 1.5rem;
+    font-family: var(--paragraphs);
+    padding: 0 1rem;
+    align-items: center;
+
+}
+
+.text:hover, .text:focus,
+.number:hover, .number:focus,
+.password:hover, .password:focus,
+.email:hover, .email:focus,
+.select:hover, .select:focus,
+.tel:hover, .tel:focus {
+    outline: 1px solid var(--main-color);
+}
+
+.text:hover:disabled,
+.number:hover:disabled,
+.password:hover:disabled,
+.email:hover:disabled,
+.select:hover:disabled,
+.date:hover:disabled, 
+.tel:hover:disabled {
+    outline: 2px solid var(--b-gray);
+}
+
+.buttonback {
+    width: auto;
+    padding: 10px;
+    background-color: #222;
+    color: white;
+    border: none;
+    border-radius: 19px;
+    cursor: pointer;
+    font-size: 15px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.buttonback:hover {
+    background-color: #bbb;
+    color: rgb(0, 0, 0);
+    transition: all 0.2s ease;
+    box-shadow: 0px 6px 20px rgba(133, 133, 133, 0.3);
+}
+  
+.buttoncontinue {
+    width: auto;
+    padding: 7px;
+    background-color: #263A7F;
+    color: white;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 14px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.buttoncontinue:hover {
+    background-color: rgb(12, 31, 97);
+    transition: all 0.2s ease;
+    box-shadow: 0px 6px 20px rgba(133, 133, 133, 0.3);
+}
+  
+@media screen and (max-width: 768px) {
+    .text,
+    .number,
+    .password,
+    .email,
+    .select,
+    .date,
+    .tel {
+        width: 95%;
+        font-size: 2rem;
+        padding: 1.5rem;
+        border-radius: 15px;
+        outline: 2px solid var(--b-gray);
+        border: none;
+        background-color: #FFFCFC;
+        font-family: var(--paragraphs);
+    }
+
+    .text__label,
+    .number__label,
+    .password__label,
+    .email__label,
+    .select__label,
+    .date__label,
+    .tel__label {
+        font-size: 2rem;
+        font-family: var(--paragraphs);
+        padding: 1rem 0;
+        transition: font-size, .3s;
+        color: var(--black);
+        pointer-events: none;
+    }
+
+    .file__label {
+        pointer-events: all;
+        width: 100%; 
+        height: 100%; 
+        font-size: 35px;
+        background-color: var(--white);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: var(--gray);
+    }
+
+    .checkbox__label, .radio__label {
+        font-size: 2rem;
+        font-family: var(--paragraphs);
+        padding: 0 1rem;
+        align-items: center;
+    }
+}

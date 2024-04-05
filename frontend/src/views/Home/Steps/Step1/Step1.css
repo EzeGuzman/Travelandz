@@ -1,0 +1,29 @@
+.loading-animation {
+  opacity: 0;
+  visibility: hidden;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    visibility: hidden;
+  }
+  to {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+/* Estilos para dispositivos móviles */
+@media only screen and (max-width: 768px) {
+  .container {
+    width: 100%; /* Cambiar el ancho del contenedor para dispositivos más pequeños */
+    margin: 0 auto; /* Centrar el contenedor en la pantalla */
+    padding: 20px; /* Ajustar el relleno del contenedor */
+  }
+
+  .w-responsive {
+    width: auto;
+  }
+}

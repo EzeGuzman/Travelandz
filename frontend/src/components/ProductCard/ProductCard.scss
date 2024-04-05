@@ -1,0 +1,298 @@
+.ui-search-layout__item {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 0.375rem; /* 6px */
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem; /* 16px */
+
+  .ui-search-result__wrapper {
+    padding: 1rem; /* 16px */
+  }
+
+  .andes-card {
+    padding: 1rem; /* 16px */
+    background-color: transparent;
+    border: none;
+  }
+
+  .ui-search-result__image {
+    margin-bottom: 1rem; /* 16px */
+  }
+
+  .ui-search-result__content-wrapper {
+    flex: 1;
+  }
+
+  .ui-search-item__group--title h2 {
+    font-size: 1rem; /* 16px */
+    font-weight: 500;
+    line-height: 1.375; /* 22px */
+    margin-bottom: 0.5rem; /* 8px */
+  }
+
+  .ui-search-result__content-columns {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .ui-search-result__content-column {
+    flex: 1;
+  }
+
+  .ui-search-result__content-column--right {
+    text-align: right;
+
+    .ui-search-item__group--reviews {
+      display: flex;
+      align-items: center;
+
+      .ui-search-reviews__rating-number {
+        font-size: 1.125rem; /* 18px */
+        font-weight: 600;
+        margin-right: 0.5rem; /* 8px */
+      }
+    }
+  }
+
+  .ui-search-result__bookmark {
+    position: absolute;
+    top: 1rem; /* 16px */
+    right: 1rem; /* 16px */
+
+    .ui-search-bookmark__btn:hover svg.ui-search-icon--bookmark-fill,
+    .ui-search-bookmark__btn[aria-checked='true']
+      svg.ui-search-icon--bookmark-fill {
+      fill: #3182ce; /* blue-500 */
+    }
+  }
+}
+
+.product-card {
+  max-width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+
+  &.selected {
+    border: 2px solid #3182ce; /* blue-500 */
+  }
+
+  .image-container {
+    width: 16rem; /* 256px */
+    height: 16rem; /* 256px */
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .overlay {
+      position: absolute;
+      width: 5.5rem; /* 88px */
+      height: 100%;
+      opacity: 0.5;
+      z-index: 1;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      position: relative;
+      z-index: 2;
+    }
+  }
+
+  .details {
+    flex-grow: 1;
+    padding: 1rem; /* 16px */
+
+    .provider-name {
+      font-weight: bold;
+      font-size: 1rem; /* 16px */
+      text-transform: uppercase;
+    }
+
+    .vehicle-description {
+      font-size: 1.25rem; /* 20px */
+      margin-bottom: 0.5rem; /* 8px */
+    }
+
+    .price {
+      font-weight: bold;
+      font-size: 2rem; /* 32px */
+      color: #66c05d; /* lime-500 */
+      margin-bottom: 1rem; /* 16px */
+    }
+
+    .transfer-type {
+      font-weight: bold;
+      font-size: 1rem; /* 16px */
+      background-color: #f0f7ff; /* sky-200 */
+      color: #192047; /* sky-950 */
+      padding: 0.5rem 0.75rem; /* 8px 12px */
+      border-radius: 1rem; /* 16px */
+    }
+  }
+
+  .cancellation-rules {
+    padding: 1.5rem 1rem; /* 24px 16px */
+    font-size: 1rem; /* 16px */
+    color: #4b5563; /* gray-700 */
+
+    ul {
+      list-style-type: disc;
+      padding-left: 1.25rem; /* 20px */
+
+      li {
+        display: flex;
+        align-items: center;
+        padding: 0.5rem 0; /* 8px 0 */
+
+        svg {
+          color: #2b6cb0; /* sky-900 */
+          font-size: 1.5rem; /* 24px */
+          margin-right: 0.5rem; /* 8px */
+        }
+
+        .rule-description {
+          width: 16rem; /* 256px */
+        }
+      }
+    }
+  }
+
+  .checkbox {
+    position: absolute;
+    top: 1rem; /* 16px */
+    right: 1rem; /* 16px */
+    width: 1.5rem; /* 24px */
+    height: 1.5rem; /* 24px */
+    color: #3182ce; /* blue-500 */
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+/* Estilos para dispositivos móviles */
+@media only screen and (max-width: 767px) {
+  .product-card {
+    max-width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column; /* Cambiado a columna para dispositivos móviles */
+    align-items: center; /* Centra los elementos */
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+    border-radius: 0.375rem; /* 6px */
+    background-color: #fff;
+    margin-bottom: 1rem; /* 16px */
+  }
+
+  .image-container {
+    width: 100%; /* Ancho completo para dispositivos móviles */
+    height: 16rem; /* 256px */
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .details {
+    flex-grow: 1;
+    width: 100%; /* Ancho completo para dispositivos móviles */
+    padding: 1rem; /* 16px */
+  }
+
+  .cancellation-rules {
+    padding: 1.5rem 1rem; /* 24px 16px */
+    font-size: 1rem; /* 16px */
+    color: #4b5563; /* gray-700 */
+  }
+
+  .checkbox {
+    position: absolute;
+    top: 1rem; /* 16px */
+    right: 1rem; /* 16px */
+    width: 1.5rem; /* 24px */
+    height: 1.5rem; /* 24px */
+    color: #3182ce; /* blue-500 */
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+/* Estilos para PC */
+@media only screen and (min-width: 768px) {
+  .product-card {
+    max-width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+    border-radius: 0.375rem; /* 6px */
+    background-color: #fff;
+    margin-bottom: 1rem; /* 16px */
+  }
+
+  .image-container {
+    width: 16rem; /* 256px */
+    height: 16rem; /* 256px */
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .details {
+    flex-grow: 1;
+    padding: 1rem; /* 16px */
+  }
+
+  .cancellation-rules {
+    padding: 1.5rem 1rem; /* 24px 16px */
+    font-size: 1rem; /* 16px */
+    color: #4b5563; /* gray-700 */
+  }
+
+  .checkbox {
+    position: absolute;
+    top: 1rem; /* 16px */
+    right: 1rem; /* 16px */
+    width: 1.5rem; /* 24px */
+    height: 1.5rem; /* 24px */
+    color: #3182ce; /* blue-500 */
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      outline: none;
+    }
+  }
+}

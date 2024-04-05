@@ -1,0 +1,11 @@
+.footer__container {
+  background-color: #7d7c7c;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 3rem;
+}
+
+.items__container {
+  list-style: none;
+  line-height: 2rem;
+}
