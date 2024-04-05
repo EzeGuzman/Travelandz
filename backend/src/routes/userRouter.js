@@ -116,28 +116,35 @@ const sendVerificationEmail = async (user, host) => {
   });
 };
 
-// Verificación de Usuarios
 userRouter.get(
   '/verify-email',
   expressAsyncHandler(async (req, res) => {
     try {
       const { token } = req.query;
+      // Verificar que el token no sea nulo antes de actualizar el usuario
+      if (!token) {
+        return res.status(400).send('El token de verificación es inválido');
+      }
+
       const user = await User.findOneAndUpdate(
-        { emailToken: token, emailToken: { $ne: null } }, // Asegúrate de que emailToken no sea null
+        { emailToken: token }, // Buscar el usuario por el token de verificación
         { $unset: { emailToken: 1 }, $set: { verified: true } }
       );
+
       if (user) {
-        res.redirect('https://travelandztest.netlify.app/auth');
+        // Envío de correo electrónico de verificación
+        const host = 'travelandz-backend.onrender.com'; // Proporciona el host manualmente
+        sendVerificationEmail(user, host);
+
+        return res.redirect('https://travelandztest.netlify.app/auth');
       } else {
-        res.redirect('https://travelandztest.netlify.app/register');
-        console.log('Email no verificado');
+        return res.redirect('https://travelandztest.netlify.app/register');
       }
-      // Envío de correo electrónico de verificación
-      const host = 'travelandz-backend.onrender.com'; // Proporciona el host manualmente
-      sendVerificationEmail(user, host);
     } catch (error) {
       console.error('Error en la verificación de correo electrónico:', error);
-      res.status(500).send('Error en la verificación de correo electrónico');
+      return res
+        .status(500)
+        .send('Error en la verificación de correo electrónico');
     }
   })
 );
