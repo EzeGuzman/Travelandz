@@ -58,7 +58,7 @@ const Login = () => {
       try {
         // Enviar solicitud al backend para restablecer la contraseña
         const response = await axios.post(
-          'http://localhost:4000/api/user/reset-password-request',
+          'https://travelandz-backend.onrender.com/api/user/reset-password-request',
           {
             email,
           }

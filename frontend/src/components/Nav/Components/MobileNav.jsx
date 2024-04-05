@@ -21,7 +21,7 @@ const MobileNav = ({ updateUserInfo }) => {
       if (storedUserInfo) {
         const parsedUserInfo = JSON.parse(storedUserInfo);
         const response = await axios.get(
-          `http://localhost:4000/api/user/get/${parsedUserInfo._id}`
+          `https://travelandz-backend.onrender.com/api/user/get/${parsedUserInfo._id}`
         );
         const userData = response.data;
         setUserInfo(userData);

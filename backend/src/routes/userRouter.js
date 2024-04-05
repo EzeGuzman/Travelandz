@@ -127,9 +127,9 @@ userRouter.get(
         { $unset: { emailToken: 1 }, $set: { verified: true } }
       );
       if (user) {
-        res.redirect('http://localhost:3000/auth');
+        res.redirect('https://travelandztest.netlify.app/auth');
       } else {
-        res.redirect('http://localhost:3000/register');
+        res.redirect('https://travelandztest.netlify.app/register');
         console.log('Email no verificado');
       }
     } catch (error) {
@@ -218,7 +218,7 @@ userRouter.post(
                 Recibiste este correo electrónico porque solicitaste un cambio de contraseña en tu cuenta de TravelTest. Haz clic en el siguiente enlace para continuar:
               </p>
               <div style="width: 100%; margin: 20px 0; display: inline-block; text-align: center;">
-                <a style="text-decoration: none; border-radius: 5px; padding: 11px 23px; color: white; background-color: #3498db;" href="http://localhost:3000/reset-password/${userId}">Cambiar Contraseña</a>
+                <a style="text-decoration: none; border-radius: 5px; padding: 11px 23px; color: white; background-color: #3498db;" href="https://travelandztest.netlify.app/reset-password/${userId}">Cambiar Contraseña</a>
               </div>
               <p style="color: #b3b3b3; font-size: 12px; text-align: center; margin: 30px 0 0;">TravelTest - 2024</p>
             </div>
@@ -301,7 +301,7 @@ const sendResetPasswordEmail = async (user) => {
     <div style="max-width: 600px; padding: 10px; margin: 0 auto">
     <p>Hola ${user.name},</p>
     <p>Recibiste este correo electrónico porque solicitaste restablecer la contraseña de tu cuenta en TravelTest. Haz clic en el siguiente enlace para restablecer tu contraseña:</p>
-    <a href="http://localhost:3000/reset-password/${user._id}">Restablecer Contraseña</a>
+    <a href="https://travelandztest.netlify.app/reset-password/${user._id}">Restablecer Contraseña</a>
     <p>Si no solicitaste restablecer tu contraseña, puedes ignorar este correo electrónico.</p>
     <p>Gracias,</p>
     <p>El equipo de TravelTest</p>

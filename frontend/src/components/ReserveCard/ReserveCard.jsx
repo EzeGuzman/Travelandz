@@ -26,7 +26,7 @@ const ReserveCard = ({ booking }) => {
   const handleCancelBooking = async () => {
     try {
       await axios.delete(
-        `http://localhost:4000/api/booking/delete/${booking._id}`
+        `https://travelandz-backend.onrender.com/api/booking/delete/${booking._id}`
       );
       // Si la eliminación es exitosa, podrías mostrar un mensaje de éxito o actualizar la lista de reservas.
       Swal.fire({

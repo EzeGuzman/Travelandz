@@ -12,7 +12,7 @@ const AirportSelect = ({ value, onChange }) => {
       // Verifica si los códigos de aeropuerto ya están presentes en el estado global
       if (airportCodes.length === 0) {
         const response = await axios.get(
-          'http://localhost:4000/api/airport-codes'
+          'https://travelandz-backend.onrender.com/api/airport-codes'
         );
         const sortedAirportCodes = response.data.sort((a, b) =>
           a.iata.localeCompare(b.iata)

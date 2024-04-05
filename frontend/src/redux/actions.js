@@ -105,7 +105,7 @@ export const userSigninAction =
   (name, password, navigateTo) => async (dispatch, getState) => {
     try {
       const { data } = await axios.post(
-        'http://localhost:4000/api/user/signin',
+        'https://travelandz-backend.onrender.com/api/user/signin',
         {
           name,
           password,
@@ -140,7 +140,7 @@ export const fetchTransferOffers = () => {
       } = getState().search;
 
       const response = await axios.post(
-        'http://localhost:4000/api/transfer/transfer-offers',
+        'https://travelandz-backend.onrender.com/api/transfer/transfer-offers',
         {
           startLocationCode,
           transferType,

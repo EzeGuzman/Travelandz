@@ -23,7 +23,7 @@ const Register = () => {
     e.preventDefault();
     try {
       const response = await Axios.post(
-        'http://localhost:4000/api/user/signup',
+        'https://travelandz-backend.onrender.com/api/user/signup',
         {
           email: email,
           name: name,

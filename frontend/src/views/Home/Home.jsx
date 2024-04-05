@@ -58,7 +58,7 @@ const Home = () => {
       };
 
       await axios.post(
-        'http://localhost:4000/api/booking/reserve',
+        'https://travelandz-backend.onrender.com/api/booking/reserve',
         bookingData
       );
 

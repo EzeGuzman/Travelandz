@@ -26,10 +26,13 @@ const ChangePassword = () => {
     }
 
     try {
-      await axios.put(`http://localhost:4000/api/user/change-password`, {
-        userId: _id,
-        newPassword: password,
-      });
+      await axios.put(
+        `https://travelandz-backend.onrender.com/api/user/change-password`,
+        {
+          userId: _id,
+          newPassword: password,
+        }
+      );
       Swal.fire({
         icon: 'success',
         title: 'Contraseña actualizada exitosamente!',

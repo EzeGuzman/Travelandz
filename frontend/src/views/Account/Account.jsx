@@ -22,7 +22,7 @@ const Account = () => {
   const fetchUserData = async (userId) => {
     try {
       const response = await axios.get(
-        `http://localhost:4000/api/user/get/${userId}`
+        `https://travelandz-backend.onrender.com/api/user/get/${userId}`
       );
       const userData = response.data;
       setName(userData.name);
@@ -44,7 +44,7 @@ const Account = () => {
   const handleUpdate = async () => {
     try {
       const response = await axios.put(
-        `http://localhost:4000/api/user/update/${userInfo._id}`,
+        `https://travelandz-backend.onrender.com/api/user/update/${userInfo._id}`,
         {
           name,
           email,
@@ -95,10 +95,13 @@ const Account = () => {
   // Función para enviar el correo electrónico para cambiar la contraseña
   const sendChangePasswordEmail = async () => {
     try {
-      await axios.post(`http://localhost:4000/api/user/change-password-email`, {
-        userId: userInfo._id,
-        userEmail: email, // Aquí podrías enviar el correo electrónico del usuario
-      });
+      await axios.post(
+        `https://travelandz-backend.onrender.com/api/user/change-password-email`,
+        {
+          userId: userInfo._id,
+          userEmail: email, // Aquí podrías enviar el correo electrónico del usuario
+        }
+      );
     } catch (error) {
       console.error('Error sending change password email:', error);
     }

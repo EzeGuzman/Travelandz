@@ -29,7 +29,7 @@ const Step1 = ({ onNext, onSelectOffer }) => {
     setLoading(true);
     try {
       const response = await axios.post(
-        'http://localhost:4000/api/transfer/transfer-offers',
+        'https://travelandz-backend.onrender.com/api/transfer/transfer-offers',
         {
           startLocationCode,
           transferType,
@@ -71,7 +71,7 @@ const Step1 = ({ onNext, onSelectOffer }) => {
   const handleSelectOffer = async (offer) => {
     try {
       const response = await axios.get(
-        `http://localhost:4000/api/booking/offer/${offer.id}/bookings`
+        `https://travelandz-backend.onrender.com/api/booking/offer/${offer.id}/bookings`
       );
       const offerBookings = response.data;
       if (offerBookings.length > 0) {

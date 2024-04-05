@@ -22,7 +22,7 @@ const Bookings = () => {
         setUserInfo(parsedUserInfo);
         const userId = parsedUserInfo._id;
         const response = await axios.get(
-          `http://localhost:4000/api/booking/user/${userId}/bookings`
+          `https://travelandz-backend.onrender.com/api/booking/user/${userId}/bookings`
         );
         setBookings(response.data);
         setLoading(false); // Marca la carga como completada después de recibir los datos
