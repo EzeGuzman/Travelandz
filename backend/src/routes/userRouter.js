@@ -99,7 +99,7 @@ const sendVerificationEmail = async (user) => {
           </p>
           <div style="width: 100%; margin: 20px 0; display: inline-block; text-align: center;"></div>
           <div style="width: 100%; text-align: center">
-            <a style="text-decoration: none; border-radius: 5px; padding: 11px 23px; color: white; background-color: #3498db;" href="https://travelandz-backend.onrender.com/api/user/verify-email?token=${user.emailToken}">Verificar mi cuenta</a>
+            <a style="text-decoration: none; border-radius: 5px; padding: 11px 23px; color: white; background-color: #3498db;" href="http://${req.headers.host}/api/user/verify-email?token=${user.emailToken}">Verificar mi cuenta</a>
           </div>
           <p style="color: #b3b3b3; font-size: 12px; text-align: center; margin: 30px 0 0;">TravelTest - 2024</p>
         </div>
