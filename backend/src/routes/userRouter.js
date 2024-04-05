@@ -123,7 +123,7 @@ userRouter.get(
     try {
       const { token } = req.query;
       const user = await User.findOneAndUpdate(
-        { emailToken: token },
+        { emailToken: token, emailToken: { $ne: null } }, // Asegúrate de que emailToken no sea null
         { $unset: { emailToken: 1 }, $set: { verified: true } }
       );
       if (user) {
@@ -132,9 +132,9 @@ userRouter.get(
         res.redirect('https://travelandztest.netlify.app/register');
         console.log('Email no verificado');
       }
-
       // Envío de correo electrónico de verificación
-      sendVerificationEmail(user, 'travelandz-backend.onrender.com');
+      const host = 'travelandz-backend.onrender.com'; // Proporciona el host manualmente
+      sendVerificationEmail(user, host);
     } catch (error) {
       console.error('Error en la verificación de correo electrónico:', error);
       res.status(500).send('Error en la verificación de correo electrónico');
