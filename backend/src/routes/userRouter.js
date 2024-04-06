@@ -55,7 +55,7 @@ userRouter.post(
     const createdUser = await newUser.save();
 
     // Envío de correo electrónico de verificación
-    sendVerificationEmail(createdUser, req.headers.host);
+    sendVerificationEmail(createdUser);
 
     res.status(201).send({
       _id: createdUser._id,
@@ -67,7 +67,7 @@ userRouter.post(
 );
 
 // Función para enviar correo electrónico de verificación
-const sendVerificationEmail = async (user, host) => {
+const sendVerificationEmail = async (user) => {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     port: 587,
@@ -99,7 +99,7 @@ const sendVerificationEmail = async (user, host) => {
           </p>
           <div style="width: 100%; margin: 20px 0; display: inline-block; text-align: center;"></div>
           <div style="width: 100%; text-align: center">
-            <a style="text-decoration: none; border-radius: 5px; padding: 11px 23px; color: white; background-color: #3498db;" href="https://${host}/api/user/verify-email?token=${user.emailToken}">Verificar mi cuenta</a>
+            <a style="text-decoration: none; border-radius: 5px; padding: 11px 23px; color: white; background-color: #3498db;" href="https://travelandz-backend.onrender.com/api/user/verify-email?token=${user.emailToken}">Verificar mi cuenta</a>
           </div>
           <p style="color: #b3b3b3; font-size: 12px; text-align: center; margin: 30px 0 0;">TravelTest - 2024</p>
         </div>
@@ -116,38 +116,25 @@ const sendVerificationEmail = async (user, host) => {
   });
 };
 
-userRouter.get(
-  '/verify-email',
-  expressAsyncHandler(async (req, res) => {
-    try {
-      const { token } = req.query;
-      // Verificar que el token no sea nulo antes de actualizar el usuario
-      if (!token) {
-        return res.status(400).send('El token de verificación es inválido');
-      }
-
-      const user = await User.findOneAndUpdate(
-        { emailToken: token }, // Buscar el usuario por el token de verificación
-        { $unset: { emailToken: 1 }, $set: { verified: true } }
-      );
-
-      if (user) {
-        // Envío de correo electrónico de verificación
-        const host = 'travelandz-backend.onrender.com'; // Proporciona el host manualmente
-        sendVerificationEmail(user, host);
-
-        return res.redirect('https://travelandztest.netlify.app/auth');
-      } else {
-        return res.redirect('https://travelandztest.netlify.app/register');
-      }
-    } catch (error) {
-      console.error('Error en la verificación de correo electrónico:', error);
-      return res
-        .status(500)
-        .send('Error en la verificación de correo electrónico');
+// Verificación de Usuarios
+userRouter.get('/verify-email', async (req, res) => {
+  try {
+    const token = req.query.token;
+    const user = await User.findOneAndUpdate({ emailToken: token });
+    if (user) {
+      user.emailToken = null;
+      user.verified = true;
+      await user.save();
+      res.redirect('https://travelandztest.netlify.app/auth');
+    } else {
+      res.redirect('https://travelandztest.netlify.app/register');
+      console.log('Email no verificado');
     }
-  })
-);
+  } catch (error) {
+    console.error('Error en la verificación de correo electrónico:', error);
+    res.status(500).send('Error en la verificación de correo electrónico');
+  }
+});
 
 // Actualización de Usuarios
 userRouter.put(
