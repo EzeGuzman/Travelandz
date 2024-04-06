@@ -2,15 +2,21 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import vectorVerification from './assets/vectorVerification.jpg';
-import { Button, Nav } from '../../components/index.js';
 import './Authentication.scss';
 
 import { AiOutlineSwapRight } from 'react-icons/ai';
 
+import logo from './assets/logo.png';
+
 const Authentication = () => {
   return (
     <>
-      <Nav />
+      <nav className="nav relative">
+        <div className="brand__logo">
+          <img src={logo} alt="" className="imgLogo" />
+          <p className="nav__brand">Travelandz</p>
+        </div>
+      </nav>
       <div
         className="verification-body"
         style={{ position: 'absolute', zIndex: '-1' }}
@@ -21,7 +27,7 @@ const Authentication = () => {
             src={vectorVerification}
             alt="Verificación"
           />
-          <h1 className="top-title">Bienvenido a la familia Moving360</h1>
+          <h1 className="top-title">Bienvenido a la familia TravelTest</h1>
         </div>
         <div className="bottom-container">
           <h3 className="bottom-title">

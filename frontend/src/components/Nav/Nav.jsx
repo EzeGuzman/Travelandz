@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import './Nav.css'; // Asegúrate de importar los estilos del componente Nav
+import './Nav.css';
 import axios from 'axios';
 import { userSignoutAction } from '../../redux/actions.js';
 import DesktopNav from './Components/DesktopNav.jsx';
 import MobileNav from './Components/MobileNav.jsx';
 
-const Nav = ({ updateUserInfo }) => {
+const Nav = () => {
   const [userInfo, setUserInfo] = useState(null);
 
   useEffect(() => {
@@ -19,7 +19,6 @@ const Nav = ({ updateUserInfo }) => {
           );
           const userData = response.data;
           setUserInfo(userData);
-          updateUserInfo(userData);
         }
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -27,7 +26,7 @@ const Nav = ({ updateUserInfo }) => {
     };
 
     fetchUserData();
-  }, [updateUserInfo]);
+  }, []);
 
   const handleSignout = () => {
     userSignoutAction();

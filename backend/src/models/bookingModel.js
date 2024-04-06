@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 
-// Definición del esquema de reserva
 const bookingSchema = new mongoose.Schema({
   user_id: { type: String, required: true },
   offer_id: { type: String, required: true, unique: true },
@@ -102,7 +101,6 @@ const bookingSchema = new mongoose.Schema({
   fecha_reserva: { type: Date, default: Date.now },
 });
 
-// Modelo de reserva
 const Booking = mongoose.model('Booking', bookingSchema);
 
 export default Booking;

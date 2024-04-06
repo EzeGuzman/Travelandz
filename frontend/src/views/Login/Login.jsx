@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaUserShield } from 'react-icons/fa';
 import { BsFillShieldLockFill } from 'react-icons/bs';
 import { AiOutlineSwapRight } from 'react-icons/ai';
-import { RiEyeCloseLine, RiEyeLine } from 'react-icons/ri'; // Importa los íconos de mostrar/ocultar contraseña
+import { RiEyeCloseLine, RiEyeLine } from 'react-icons/ri';
 import './Login.css';
 import '../../css/App.css';
 import imgLogin from './assets/imgLogin.jpg';
@@ -26,7 +26,16 @@ const Login = () => {
   const loginUser = async (e) => {
     e.preventDefault();
     try {
-      dispatch(userSigninAction(name, password, navigateTo));
+      const response = await dispatch(
+        userSigninAction(name, password, navigateTo)
+      );
+      if (!response.success) {
+        setLoginStatus(response.message);
+        setStatusHolder('showMessage');
+        setTimeout(() => {
+          setStatusHolder('message');
+        }, 4000);
+      }
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
       setLoginStatus('Error al iniciar sesión');
@@ -56,7 +65,7 @@ const Login = () => {
 
     if (email) {
       try {
-        // Enviar solicitud al backend para restablecer la contraseña
+        // Envia solicitud al backend para restablecer la contraseña
         const response = await axios.post(
           'https://travelandz-backend.onrender.com/api/user/reset-password-request',
           {
@@ -128,7 +137,7 @@ const Login = () => {
               <div className="input flex">
                 <BsFillShieldLockFill className="icon" />
                 <input
-                  type={showPassword ? 'text' : 'password'} // Mostrar la contraseña si showPassword es true
+                  type={showPassword ? 'text' : 'password'} // Muestra la contraseña si showPassword es true
                   id="password"
                   placeholder="Ingrese su contraseña"
                   value={password}

@@ -13,7 +13,7 @@ const StepperControl = ({
 
   return (
     <div className="container flex justify-around mt-4 mb-8">
-      {/* Verificar si el paso actual es 2 */}
+      {/* Verifica si el paso actual es 2 */}
       {currentStep === 2 ? (
         <button
           onClick={reloadPage} // Llama a la función para recargar la página
@@ -34,7 +34,7 @@ const StepperControl = ({
         </button>
       )}
 
-      {/* Verificar si el paso actual es el último */}
+      {/* Verifica si el paso actual es el último */}
       {currentStep === steps.length ? (
         <button
           onClick={handleConfirmBooking} // Llama a la función para confirmar la reserva

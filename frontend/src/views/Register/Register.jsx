@@ -5,7 +5,8 @@ import { FaUserShield } from 'react-icons/fa';
 import { BsFillShieldLockFill } from 'react-icons/bs';
 import { AiOutlineSwapRight } from 'react-icons/ai';
 import { MdMarkEmailRead } from 'react-icons/md';
-import { RiEyeCloseLine, RiEyeLine } from 'react-icons/ri'; // Importa los íconos de mostrar/ocultar contraseña
+import { RiEyeCloseLine, RiEyeLine } from 'react-icons/ri';
+import Swal from 'sweetalert2';
 
 import './Register.css';
 import '../../css/App.css';
@@ -17,6 +18,8 @@ const Register = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false); // Estado para controlar si se muestra la contraseña
+  const [registrationStatus, setRegistrationStatus] = useState(''); // Estado para controlar el mensaje de advertencia
+  const [statusHolder, setStatusHolder] = useState('message');
   const navigateTo = useNavigate();
 
   const createUser = async (e) => {
@@ -31,12 +34,26 @@ const Register = () => {
         }
       );
       if (response.status === 200) {
-        navigateTo('/');
-      } else {
-        // Manejar otros códigos de estado aquí si es necesario
+        Swal.fire({
+          icon: 'success',
+          title: 'Revisa tu correo para finalizar el registro!',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+
+        setTimeout(() => {
+          navigateTo('/'); // Redirige a la página de inicio de sesión
+        }, 2000);
       }
     } catch (error) {
-      // Manejar errores de red u otros errores aquí
+      // Maneja errores de red u otros errores aquí
+      setRegistrationStatus(
+        'Error al registrar el usuario. Por favor, inténtalo de nuevo.'
+      );
+      setStatusHolder('showMessage');
+      setTimeout(() => {
+        setStatusHolder('message');
+      }, 4000);
       console.error('Error al registrar el usuario:', error);
     }
   };
@@ -66,9 +83,10 @@ const Register = () => {
             <h3 className="title__form">¡Bienvenido!</h3>
           </div>
           <form className="form grid">
-            <span className="message warning__text">
-              El estado del registro estará aquí
-            </span>
+            {/* Mensaje de advertencia */}
+            {registrationStatus && (
+              <span className={statusHolder}>{registrationStatus}</span>
+            )}
             <div className="input__div">
               <label htmlFor="email">Correo Electrónico</label>
               <div className="input flex">
@@ -100,7 +118,7 @@ const Register = () => {
               <div className="input flex">
                 <BsFillShieldLockFill className="icon" />
                 <input
-                  type={showPassword ? 'text' : 'password'} // Mostrar la contraseña si showPassword es true
+                  type={showPassword ? 'text' : 'password'} // Muestra la contraseña si showPassword es true
                   id="password"
                   placeholder="Ingrese su contraseña"
                   value={password}

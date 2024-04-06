@@ -1,0 +1,19 @@
+.visibility-toast {
+  display: block;
+  color: var(--whiteColor);
+  padding: 10px;
+  background: #ed2b2a;
+  border-radius: 3px;
+  text-align: center;
+  animation: fadeOut 1s ease 1s forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    display: none;
+  }
+}

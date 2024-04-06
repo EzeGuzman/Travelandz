@@ -19,12 +19,30 @@ const Step2 = ({ onSelectPayment, onCreditCardDetails }) => {
     const { name, value } = evt.target;
     setState((prev) => ({ ...prev, [name]: value }));
 
-    // Llamar a la función onCreditCardDetails para actualizar los detalles de la tarjeta
+    // Llama a la función onCreditCardDetails para actualizar los detalles de la tarjeta
     onCreditCardDetails({ ...state, [name]: value });
   };
 
   const handleInputFocus = (evt) => {
     setState((prev) => ({ ...prev, focus: evt.target.name }));
+  };
+
+  // Función para formatear el número de tarjeta
+  const formatCardNumber = (input) => {
+    let cardNumber = input.replace(/\D/g, '');
+
+    cardNumber = cardNumber.replace(/(\d{4})(?=\d)/g, '$1 ');
+
+    return cardNumber;
+  };
+
+  // Función para formatear la fecha de expiración
+  const formatExpiry = (input) => {
+    let expiry = input.replace(/\D/g, '');
+
+    expiry = expiry.replace(/(\d{2})(?=\d)/g, '$1/');
+
+    return expiry;
   };
 
   const handlePaymentMethodChange = (evt) => {
@@ -63,7 +81,7 @@ const Step2 = ({ onSelectPayment, onCreditCardDetails }) => {
           <option value="tarjeta">Tarjeta de débito/crédito</option>
         </select>
 
-        {/* Renderizar el componente Cards o el mensaje basado en el método de pago seleccionado */}
+        {/* Renderiza el componente Cards o el mensaje basado en el método de pago seleccionado */}
         {state.paymentMethod === 'tarjeta' && (
           <div className="mt-4">
             <Cards
@@ -81,12 +99,13 @@ const Step2 = ({ onSelectPayment, onCreditCardDetails }) => {
                   </label>
                   <input
                     id="number"
-                    type="number"
+                    type="text"
                     name="number"
                     placeholder="Número de Tarjeta"
-                    value={state.number}
+                    value={formatCardNumber(state.number)}
                     onChange={handleInputChange}
                     onFocus={handleInputFocus}
+                    maxLength="19"
                     className="p-2 border border-gray-300 rounded-lg w-full focus:border-gray-400 outline-none"
                   />
                 </div>
@@ -98,10 +117,11 @@ const Step2 = ({ onSelectPayment, onCreditCardDetails }) => {
                     id="name"
                     type="text"
                     name="name"
-                    placeholder="Nombre"
+                    placeholder="Nombre completo"
                     value={state.name}
                     onChange={handleInputChange}
                     onFocus={handleInputFocus}
+                    maxLength="50"
                     className="p-2 border border-gray-300 rounded-lg w-full focus:border-gray-400 outline-none"
                   />
                 </div>
@@ -113,10 +133,11 @@ const Step2 = ({ onSelectPayment, onCreditCardDetails }) => {
                     id="expiry"
                     type="text"
                     name="expiry"
-                    placeholder="MM/YY"
-                    value={state.expiry}
+                    placeholder="Fecha de expiración"
+                    value={formatExpiry(state.expiry)}
                     onChange={handleInputChange}
                     onFocus={handleInputFocus}
+                    maxLength="5"
                     className="p-2 border border-gray-300 rounded-lg w-full focus:border-gray-400 outline-none"
                   />
                 </div>
@@ -128,10 +149,11 @@ const Step2 = ({ onSelectPayment, onCreditCardDetails }) => {
                     id="cvc"
                     type="text"
                     name="cvc"
-                    placeholder="CVC"
+                    placeholder="Ingrese los 3 número detrás de la tarjeta"
                     value={state.cvc}
                     onChange={handleInputChange}
                     onFocus={handleInputFocus}
+                    maxLength="3"
                     className="p-2 border border-gray-300 rounded-lg w-full focus:border-gray-400 outline-none"
                   />
                 </div>
@@ -140,7 +162,7 @@ const Step2 = ({ onSelectPayment, onCreditCardDetails }) => {
           </div>
         )}
 
-        {/* Mostrar mensaje si se selecciona efectivo */}
+        {/* Muestra mensaje si se selecciona efectivo */}
         {state.paymentMethod === 'efectivo' && (
           <div className="mt-4">
             <p className="text-center bg-lime-200 text-lime-950 py-3 px-8 rounded-lg">

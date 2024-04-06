@@ -1,4 +1,7 @@
 import React from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import './Step3.css';
 
 const Step3 = ({
   selectedOffer,
@@ -6,12 +9,26 @@ const Step3 = ({
   creditCardDetails,
   onConfirm,
 }) => {
+  const showErrorToast = (message) => {
+    toast.error(message, {
+      position: 'top-right',
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+      transition: 'Bounce',
+      className: 'visibility-toast',
+    });
+  };
   const handleConfirmation = () => {
     // Realiza cualquier validación necesaria antes de confirmar la reserva
     // Por ejemplo, verifica que se hayan seleccionado una oferta y un método de pago
     if (!selectedOffer || !paymentMethod) {
-      alert(
-        'Por favor, selecciona una oferta y un método de pago antes de confirmar'
+      showErrorToast(
+        'Por favor, selecciona una oferta y un método de pago antes de confirmar!'
       );
       return;
     }
@@ -24,7 +41,7 @@ const Step3 = ({
     <div className="container mx-auto mt-8 p-4 bg-blue-100 rounded-lg shadow-md w-1/2">
       <h2 className="text-2xl font-bold my-4">Resumen de la reserva</h2>
 
-      {/* Mostrar los detalles de la oferta seleccionada */}
+      {/* Muestra los detalles de la oferta seleccionada */}
       {selectedOffer ? (
         <div className="mb-4">
           <h3 className="text-lg font-semibold mb-2">
@@ -57,8 +74,8 @@ const Step3 = ({
         <p>No se ha seleccionado ninguna oferta.</p>
       )}
 
-      {/* Mostrar el método de pago */}
-      {/* Mostrar los detalles de la tarjeta si se selecciona tarjeta como método de pago */}
+      {/* Muestra el método de pago */}
+      {/* Muestra los detalles de la tarjeta si se selecciona tarjeta como método de pago */}
       {paymentMethod === 'tarjeta' && creditCardDetails && (
         <div className="mb-4">
           <h3 className="text-lg font-semibold mb-2">

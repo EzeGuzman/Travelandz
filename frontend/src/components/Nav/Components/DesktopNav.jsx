@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { BiSolidUserCircle } from 'react-icons/bi';
 import '../Nav.css';
 import logo from '../assets/logo.png';
-import { Link } from 'react-router-dom'; // Importa useHistory
+import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { userSignoutAction } from '../../../redux/actions.js'; // Importa la acción de cerrar sesión
+import { userSignoutAction } from '../../../redux/actions.js'
 
 const DesktopNav = ({ updateUserInfo }) => {
   const [userInfo, setUserInfo] = useState(null);
@@ -20,7 +20,6 @@ const DesktopNav = ({ updateUserInfo }) => {
           );
           const userData = response.data;
           setUserInfo(userData);
-          updateUserInfo(userData);
         }
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -28,7 +27,7 @@ const DesktopNav = ({ updateUserInfo }) => {
     };
 
     fetchUserData();
-  }, [updateUserInfo]);
+  }, []);
 
   // Función para cerrar sesión
   const handleSignout = () => {

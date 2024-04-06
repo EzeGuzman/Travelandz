@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { FaAngleRight } from 'react-icons/fa';
+import { MdOutlineImageNotSupported } from 'react-icons/md';
 import './ProductCard.scss';
 
 const ProductCard = ({ offer, onSelect }) => {
   const [isSelected, setIsSelected] = useState(false); // Estado para el checkbox
+  const [imageError, setImageError] = useState(false); // Estado para manejar errores de imagen
 
   const getCurrencySymbol = (currencyCode) => {
     switch (currencyCode) {
@@ -22,12 +24,16 @@ const ProductCard = ({ offer, onSelect }) => {
   const currencySymbol = getCurrencySymbol(offer.quotation.currencyCode);
 
   const toggleSelection = () => {
-    setIsSelected(!isSelected); // Cambia el estado del checkbox
-    onSelect(offer, !isSelected); // Llama a la función onSelect pasando la oferta y el estado actual del checkbox
+    setIsSelected(!isSelected);
+    onSelect(offer, !isSelected);
   };
 
   const handleCheckboxClick = () => {
-    onSelect(offer, true); // Pasar true para indicar que proviene del checkbox
+    onSelect(offer, true);
+  };
+
+  const handleImageError = () => {
+    setImageError(true);
   };
 
   return (
@@ -39,11 +45,18 @@ const ProductCard = ({ offer, onSelect }) => {
       <div className="image-container w-64 h-64 flex items-center justify-center relative flex-shrink-0">
         {/* Contenedor con tamaño fijo */}
         <div className="overlay absolute h-full w-22 opacity-50 z-1"></div>
-        <img
-          className="w-full h-full object-contain z-2 relative p-4"
-          src={offer.vehicle.imageURL}
-          alt={offer.vehicle.description}
-        />
+        {!imageError ? ( // Verificar si hay error de imagen
+          <img
+            className="w-full h-full object-contain z-2 relative p-4"
+            src={offer.vehicle.imageURL}
+            alt={offer.vehicle.description}
+            onError={handleImageError} // Manejar errores de imagen
+          />
+        ) : (
+          <div className="image-not-found flex items-center justify-center absolute inset-0">
+            <MdOutlineImageNotSupported className="text-red-500 text-6xl" />
+          </div>
+        )}
       </div>
 
       <div className="details flex-grow">

@@ -41,7 +41,7 @@ const ChangePassword = () => {
       });
 
       setTimeout(() => {
-        window.location.href = '/'; // Redirige a la página de inicio de sesión
+        window.location.href = 'https://travelandztest.netlify.app'; // Redirige a la página de inicio de sesión
       }, 2000);
     } catch (error) {
       console.error('Error actualizando la contraseña:', error);
@@ -64,7 +64,6 @@ const ChangePassword = () => {
       </nav>
       <div className="container mx-auto mt-8 p-4 bg-blue-100 rounded-lg shadow-md w-full sm:w-1/2">
         {' '}
-        {/* Adjust width for small screens */}
         <h2 className="text-2xl font-bold my-4">Cambiar Contraseña</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4 relative">
@@ -115,7 +114,7 @@ const ChangePassword = () => {
           </div>
           <button
             type="submit"
-            className="bg-blue-500 text-white py-2 px-4 rounded-md w-full" // Make button full width for small screens
+            className="bg-blue-500 text-white py-2 px-4 rounded-md w-full"
           >
             Cambiar Contraseña
           </button>

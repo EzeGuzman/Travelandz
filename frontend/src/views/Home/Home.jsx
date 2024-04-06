@@ -40,12 +40,13 @@ const Home = () => {
       position: 'top-right',
       autoClose: 1500,
       hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
+      closeOnClick: false,
+      pauseOnHover: false,
       draggable: true,
       progress: undefined,
       theme: 'light',
-      transition: 'bounce',
+      transition: 'Bounce',
+      className: 'visibility-toast',
     });
 
   const handleConfirmBooking = async () => {
@@ -65,7 +66,9 @@ const Home = () => {
       notify();
 
       setTimeout(() => {
-        window.location.reload();
+        window.location.replace(
+          'https://travelandztest.netlify.app/my-bookings'
+        );
       }, 2000);
     } catch (error) {
       console.error('Error al enviar la reserva:', error);

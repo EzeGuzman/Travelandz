@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-// Constantes de acción
 export const SET_START_LOCATION_CODE = 'SET_START_LOCATION_CODE';
 export const SET_TRANSFER_TYPE = 'SET_TRANSFER_TYPE';
 export const SET_START_DATE_TIME = 'SET_START_DATE_TIME';
@@ -16,8 +15,8 @@ export const SET_AIRPORT_CODES = 'SET_AIRPORT_CODES';
 export const SET_CREDIT_CARD_DETAILS = 'SET_CREDIT_CARD_DETAILS';
 export const SET_PAYMENT_METHOD = 'SET_PAYMENT_METHOD';
 export const SET_USER_ID = 'SET_USER_ID';
-export const USER_SIGNIN = 'USER_SIGNIN'; // Nueva acción para iniciar sesión
-export const USER_SIGNOUT = 'USER_SIGNOUT'; // Nueva acción para cerrar sesión
+export const USER_SIGNIN = 'USER_SIGNIN';
+export const USER_SIGNOUT = 'USER_SIGNOUT';
 
 // Acciones
 export const setStartLocationCode = (locationCode) => ({
@@ -102,7 +101,7 @@ export const setUserId = () => {
 
 // Acción para iniciar sesión
 export const userSigninAction =
-  (name, password, navigateTo) => async (dispatch, getState) => {
+  (name, password, navigateTo) => async (dispatch) => {
     try {
       const { data } = await axios.post(
         'https://travelandz-backend.onrender.com/api/user/signin',
@@ -113,10 +112,21 @@ export const userSigninAction =
       );
 
       dispatch({ type: USER_SIGNIN, payload: data });
+
       localStorage.setItem('userInfo', JSON.stringify(data));
       navigateTo('/home');
+
+      // Si el inicio de sesión es exitoso, devuelve un mensaje de éxito
+      return { success: true, message: 'Inicio de sesión exitoso' };
     } catch (error) {
-      console.log(error);
+      console.error('Error al iniciar sesión:', error);
+
+      // Si ocurre un error, devuelve un mensaje de error
+      return {
+        success: false,
+        message:
+          'Error al iniciar sesión. Por favor, verifica tus credenciales.',
+      };
     }
   };
 

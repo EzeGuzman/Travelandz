@@ -79,9 +79,6 @@ const Account = () => {
       confirmButtonText: 'Sí, cambiar contraseña',
     }).then((result) => {
       if (result.isConfirmed) {
-        // Aquí puedes implementar la lógica para enviar el correo electrónico para cambiar la contraseña
-        // Esto podría incluir enviar una solicitud al backend que maneja el envío de correo electrónico
-        // Después de confirmar el cambio, puedes redirigir al usuario a la página de cambio de contraseña
         sendChangePasswordEmail(); // Función para enviar el correo electrónico
         Swal.fire(
           'Correo electrónico enviado',
@@ -99,7 +96,7 @@ const Account = () => {
         `https://travelandz-backend.onrender.com/api/user/change-password-email`,
         {
           userId: userInfo._id,
-          userEmail: email, // Aquí podrías enviar el correo electrónico del usuario
+          userEmail: email,
         }
       );
     } catch (error) {

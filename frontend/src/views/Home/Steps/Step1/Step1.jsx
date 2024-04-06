@@ -7,7 +7,9 @@ import {
   SearchMap,
 } from '../../../../components/index.js';
 import axios from 'axios';
-import './Step1.css'; // Importar el archivo CSS para la animación
+import './Step1.css';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Step1 = ({ onNext, onSelectOffer }) => {
   const [transferOffers, setTransferOffers] = useState([]);
@@ -19,6 +21,8 @@ const Step1 = ({ onNext, onSelectOffer }) => {
   const [endGeoCode, setEndGeoCode] = useState('');
   const [endCountryCode, setEndCountryCode] = useState('');
   const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [offersPerPage] = useState(5);
 
   const transferOptions = [
     { value: 'PRIVATE', label: 'Private' },
@@ -68,21 +72,74 @@ const Step1 = ({ onNext, onSelectOffer }) => {
     return dateTime;
   };
 
+  const showWarningToast = (message) => {
+    toast.warning(message, {
+      position: 'top-right',
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: false,
+      draggable: true,
+      theme: 'light',
+      transition: 'Bounce',
+      className: 'visibility-toast',
+    });
+  };
+
+  const showErrorToast = (message) => {
+    toast.error(message, {
+      position: 'top-right',
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+      transition: 'Bounce',
+      className: 'visibility-toast',
+    });
+  };
+
   const handleSelectOffer = async (offer) => {
     try {
       const response = await axios.get(
         `https://travelandz-backend.onrender.com/api/booking/offer/${offer.id}/bookings`
       );
       const offerBookings = response.data;
+      // Llamadas a las funciones de los toasts
       if (offerBookings.length > 0) {
-        alert('Esta oferta ya ha sido seleccionada.');
+        showWarningToast('Esta oferta ya ha sido elegida!');
       } else {
-        onSelectOffer(offer);
+        const selectedOffers = transferOffers.filter((o) => o.isSelected);
+        if (selectedOffers.length > 0) {
+          showErrorToast('No puedes seleccionar más de una oferta!');
+        } else {
+          onSelectOffer(offer);
+          setTransferOffers((prevOffers) =>
+            prevOffers.map((prevOffer) =>
+              prevOffer === offer
+                ? { ...prevOffer, isSelected: true }
+                : prevOffer
+            )
+          );
+        }
       }
     } catch (error) {
       console.error('Error fetching offer bookings:', error);
     }
   };
+
+  // Obtener las ofertas para la página actual
+  const indexOfLastOffer = currentPage * offersPerPage;
+  const indexOfFirstOffer = indexOfLastOffer - offersPerPage;
+  const currentOffers = transferOffers.slice(
+    indexOfFirstOffer,
+    indexOfLastOffer
+  );
+
+  // Cambiar de página
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <>
@@ -126,17 +183,20 @@ const Step1 = ({ onNext, onSelectOffer }) => {
           </div>
         </div>
         <button
-          onClick={() => setSearchClicked(true)}
+          onClick={() => {
+            setSearchClicked(true);
+            setCurrentPage(1); // Resetea la página actual al hacer una nueva búsqueda
+          }}
           className="w-24 bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600 mt-4 mx-auto cursor-pointer"
         >
           Buscar
         </button>
       </div>
-      <div className="flex flex-col justify-between mx-auto w-2/3 w-responsive">
+      <div className="flex flex-col justify-between mx-auto mt-9 w-2/3 w-responsive">
         {loading ? (
           <div className="loading-animation mt-4">Cargando...</div>
-        ) : transferOffers && transferOffers.length > 0 ? (
-          transferOffers.map((offer, index) => (
+        ) : currentOffers && currentOffers.length > 0 ? (
+          currentOffers.map((offer, index) => (
             <div key={index} className="w-full">
               <ProductCard
                 offer={offer}
@@ -148,6 +208,29 @@ const Step1 = ({ onNext, onSelectOffer }) => {
           <div className="text-center mt-4 text-gray-600">
             No hay reservas disponibles
           </div>
+        )}
+      </div>
+      {/* Paginación */}
+      <div className="flex justify-center mt-4">
+        {transferOffers.length > offersPerPage && (
+          <ul className="flex">
+            {[...Array(Math.ceil(transferOffers.length / offersPerPage))].map(
+              (number, index) => (
+                <li key={index} className="mx-1">
+                  <button
+                    onClick={() => paginate(index + 1)}
+                    className={`${
+                      currentPage === index + 1
+                        ? 'bg-blue-500 text-white'
+                        : 'bg-gray-300 text-gray-700'
+                    } py-2 px-4 rounded-md focus:outline-none`}
+                  >
+                    {index + 1}
+                  </button>
+                </li>
+              )
+            )}
+          </ul>
         )}
       </div>
     </>

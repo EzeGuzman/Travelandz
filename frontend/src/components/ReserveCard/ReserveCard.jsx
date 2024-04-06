@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaAngleRight } from 'react-icons/fa';
+import { MdOutlineImageNotSupported } from 'react-icons/md';
 import axios from 'axios';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
 
 const ReserveCard = ({ booking }) => {
   const offer = JSON.parse(booking.offer); // Parsear el campo offer de JSON a objeto JavaScript
+  const [imageError, setImageError] = useState(false); // Estado para manejar errores de imagen
 
   const getCurrencySymbol = (currencyCode) => {
     switch (currencyCode) {
@@ -28,7 +30,6 @@ const ReserveCard = ({ booking }) => {
       await axios.delete(
         `https://travelandz-backend.onrender.com/api/booking/delete/${booking._id}`
       );
-      // Si la eliminación es exitosa, podrías mostrar un mensaje de éxito o actualizar la lista de reservas.
       Swal.fire({
         icon: 'success',
         title: 'Tu reserva fue eliminada con éxito!',
@@ -44,16 +45,27 @@ const ReserveCard = ({ booking }) => {
     }
   };
 
+  const handleImageError = () => {
+    setImageError(true); // Establecer el estado de error de imagen como verdadero
+  };
+
   return (
     <div className="product-card relative flex flex-row items-center overflow-hidden shadow-lg">
       <div className="image-container w-64 h-64 flex items-center justify-center relative flex-shrink-0">
         {/* Contenedor con tamaño fijo */}
         <div className="overlay absolute h-full w-22 opacity-50 z-1"></div>
-        <img
-          className="w-full h-full object-contain z-2 relative p-4"
-          src={offer.vehicle.imageURL}
-          alt={offer.vehicle.description}
-        />
+        {!imageError ? ( // Verificar si hay error de imagen
+          <img
+            className="w-full h-full object-contain z-2 relative p-4"
+            src={offer.vehicle.imageURL}
+            alt={offer.vehicle.description}
+            onError={handleImageError} // Manejar errores de imagen
+          />
+        ) : (
+          <div className="image-not-found flex items-center justify-center absolute inset-0">
+            <MdOutlineImageNotSupported className="text-red-500 text-6xl" />
+          </div>
+        )}
       </div>
 
       <div className="details flex-grow">
@@ -93,7 +105,6 @@ const ReserveCard = ({ booking }) => {
       >
         Cancelar
       </button>
-      {/* Resto del contenido de la tarjeta de reserva */}
     </div>
   );
 };

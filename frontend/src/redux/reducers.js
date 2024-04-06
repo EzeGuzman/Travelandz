@@ -13,10 +13,10 @@ import {
   SET_SELECTED_DATE,
   SET_AIRPORT_CODES,
   SET_CREDIT_CARD_DETAILS,
-  SET_PAYMENT_METHOD, // Nueva acción para establecer el método de pago
+  SET_PAYMENT_METHOD,
   SET_USER_ID,
-  USER_SIGNIN, // Nueva acción para iniciar sesión
-  USER_SIGNOUT, // Nueva acción para cerrar sesión
+  USER_SIGNIN,
+  USER_SIGNOUT,
 } from './actions';
 
 // Reductores
@@ -134,10 +134,8 @@ const userInitialState = {
 const userReducer = (state = userInitialState, action) => {
   switch (action.type) {
     case USER_SIGNIN:
-      console.log('User signed in:', action.payload);
       return { ...state, isAuthenticated: true, userId: action.payload.userId };
     case USER_SIGNOUT:
-      console.log('User signed out');
       return { ...state, isAuthenticated: false, userId: null };
     default:
       return state;

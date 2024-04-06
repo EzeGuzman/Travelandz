@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../Nav.css'; // Asegúrate de importar los estilos del componente Nav
+import '../Nav.css';
 import logo from '../assets/logo.png';
 import { Link } from 'react-router-dom';
 import axios from 'axios';

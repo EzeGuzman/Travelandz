@@ -18,12 +18,32 @@
 /* Estilos para dispositivos móviles */
 @media only screen and (max-width: 768px) {
   .container {
-    width: 100%; /* Cambiar el ancho del contenedor para dispositivos más pequeños */
-    margin: 0 auto; /* Centrar el contenedor en la pantalla */
-    padding: 20px; /* Ajustar el relleno del contenedor */
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
   }
 
   .w-responsive {
     width: auto;
+  }
+}
+
+.visibility-toast {
+  display: block;
+  color: var(--whiteColor);
+  padding: 10px;
+  background: #ed2b2a;
+  border-radius: 3px;
+  text-align: center;
+  animation: fadeOut 1s ease 1s forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    display: none;
   }
 }

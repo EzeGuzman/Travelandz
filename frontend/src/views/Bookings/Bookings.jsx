@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'; // Importa el componente Link para manejar la navegación
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Nav, ReserveCard } from '../../components/index.js';
 

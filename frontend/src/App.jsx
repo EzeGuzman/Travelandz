@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setUserId } from './redux/actions'; // Importa la acción setUserId
+import { setUserId } from './redux/actions';
 
 import {
   Home,
