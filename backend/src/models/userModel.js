@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema(
       required: false,
       unique: true,
       sparse: true,
-    }, // Usar sparse index
+    },
     password: { type: String, trim: true },
     verified: { type: Boolean, default: false },
   },
